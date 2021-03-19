@@ -1,9 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Persistence;
 
 namespace Application.Activities
@@ -14,8 +16,10 @@ namespace Application.Activities
         public class handler : IRequestHandler<Query, List<Activity>>
         {
             private readonly DataContext _context;
-            public handler(DataContext context)
+            private readonly ILogger<List> _logger;
+            public handler(DataContext context, ILogger<List> logger)
             {
+                _logger = logger;
                 _context = context;
 
             }
